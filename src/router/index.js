@@ -19,7 +19,6 @@ export default new Router({
     { path: '/vda', name: 'vda', component: vda },
     { path: '/btr', name: 'btr', component: btr },
     { path: '/end', name: 'end', component: end },
-    // { path: '/glpa', name: 'glpa', component: glpa },
     { path: '*', redirect: '/index' }
   ]
 })
