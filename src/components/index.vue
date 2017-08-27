@@ -63,7 +63,7 @@
       },
       methods: {
         postData() {
-          this.$http.post(this.$store.state.esPath +"FABE综合试题",this.$store.state.form)
+          this.$http.post(this.$tokenes("FABE综合试题"), this.$store.state.form)
           .then(r=> {
             if(r.data.result){
               this.$store.state.form.rcid=r.data.rcid
@@ -74,7 +74,7 @@
                 message: h('i', { style: 'color: teal'}, '提交成功')
               });              
               this.$router.push("/ddi") 
-            } else{
+            } else {
               this.$notify({
                 title: '提交失败',
                 message: h('i', { style: 'color: teal'}, r.data.errmsg)

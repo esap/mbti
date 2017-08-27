@@ -68,7 +68,7 @@
       },
       methods: {
         postData() {
-          this.$http.post(this.$store.state.apiPath +"ddi",this.$store.state.form)
+          this.$http.post(this.$token("ddi"),this.$store.state.form)
           .then(r=> {
             if(r.data.result){
               const h = this.$createElement

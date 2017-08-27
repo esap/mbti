@@ -62,7 +62,7 @@
       },
       methods: {
         postData() {
-          this.$http.post(this.$store.state.apiPath +"vda",this.$store.state.form)
+          this.$http.post(this.$token("vda"),this.$store.state.form)
           .then(r=> {
             if(r.data.result){
               const h = this.$createElement

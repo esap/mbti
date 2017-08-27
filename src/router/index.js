@@ -1,24 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from '@/components/index'
-import mbti from '@/components/mbti'
-import ddi from '@/components/ddi'
-import glpa from '@/components/glpa'
-import vda from '@/components/vda'
-import btr from '@/components/btr'
-import end from '@/components/end'
 
 Vue.use(Router)
 
+function include(v) {
+    return {path:'/'+v,name: v,component:resolve=>require(["@/components/"+v],resolve)}
+}
+
 export default new Router({
   routes: [  
-    { path: '/index', name: 'index', component: index },    
-    { path: '/mbti', name: 'mbti', component: mbti },    
-    { path: '/ddi', name: 'ddi', component: ddi },    
-    { path: '/glpa', name: 'glpa', component: glpa },
-    { path: '/vda', name: 'vda', component: vda },
-    { path: '/btr', name: 'btr', component: btr },
-    { path: '/end', name: 'end', component: end },
+    include("index"),
+    include("mbti"),
+    include("ddi"),
+    include("glpa"),
+    include("vda"),
+    include("btr"),
+    include("end"),
     { path: '*', redirect: '/index' }
   ]
 })

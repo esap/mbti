@@ -90,7 +90,7 @@ tableData[scope.$index+10].vab==10">OK</el-tag>
       },
       methods: {
         postData() {
-          this.$http.post(this.$store.state.apiPath +"btr",this.$store.state.form)
+          this.$http.post(this.$token("btr"),this.$store.state.form)
           .then(r=> {
             if(r.data.result){
               const h = this.$createElement

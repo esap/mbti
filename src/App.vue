@@ -1,28 +1,26 @@
 <template>
   <div id="app">
-  	<!-- login window -->
-	<div @keyup.enter="doLogin">
-		<el-dialog title="登陆"
-		  :close-on-click-modal="false"
-		  :close-on-press-escape="false"
-		  :show-close="false"
-		  v-model="loginVisible">
-		  <el-form :model="form">
-		    <el-form-item label="账号">
-		      <el-input v-model="form.userName" auto-complete="off"></el-input>
-		    </el-form-item>
-		    <el-form-item label="密码">
-			  <el-input v-model="psw" 
-				  type="password" 
-				  auto-complete="off">
-			  </el-input>
-		    </el-form-item>
-		  </el-form>
-		  <span slot="footer" class="dialog-footer">
-		    <el-button type="primary" @click.native="doLogin">确 定</el-button>
-		  </span>
-		</el-dialog>
-	</div>
+	<!-- 登陆 -->
+	<Modal title="登陆ESAP云平台[MBTI 3.0]"
+	  :closable="false"
+	  :mask-closable="false"
+	  v-model="notLogin">
+	  <Form :model="form">
+	    <Form-item label="账号">
+	      <Input v-model="form.user" autofocus @on-enter="doLogin">
+		    <Icon type="person" slot="prepend"></Icon>
+		  </Input>
+	    </Form-item>
+	    <Form-item label="密码">
+		  <Input v-model="pwd" type="password" @on-enter="doLogin">
+			<Icon type="ios-locked-outline" slot="prepend"></Icon>
+		  </Input>
+	    </Form-item>
+	  </Form>
+	  <span slot="footer">
+	    <Button type="primary" @click="doLogin">确 定</Button>
+	  </span>
+	</Modal>
   <!-- header导航 -->	
   <el-menu router theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
 	  <el-menu-item index="info">ESAP综合试题</el-menu-item>
@@ -69,13 +67,15 @@ export default {
   	// components: { eDialog },
   	data() {
 	  return {
-	  	psw:'',
+	  	pwd:'',
 	    activeIndex: '1',
 	    activeIndex2: '1',
-	    form: { userName: '', psw: '' },
+	    form: { user: '', pwd: '' },
+	    modal2: false
 	  };
 	},
 	computed: {
+		notLogin() { return !this.$store.getters.isLogin },
 		loginVisible() {
 			return !this.$store.getters.isLogin
 		}
@@ -85,9 +85,8 @@ export default {
 		console.log(key, keyPath);
 		},
 		doLogin() {
-			this.form.psw=md5(this.psw);
+			this.form.pwd=md5(this.pwd)
 			this.$store.dispatch('doLogin',this.form)
-			console.log(JSON.stringify(this.form));
 		}
 	},
 }
