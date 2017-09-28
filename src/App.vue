@@ -44,11 +44,11 @@
 	<div class="progress">
 	  <el-steps :space="100" :active="$store.state.active" finish-status="success">
 	    <el-step title="准备"></el-step>
-	    <el-step title="DDI"></el-step>
-	    <el-step title="GLPA"></el-step>
-	    <el-step title="MBTI"></el-step>
 	    <el-step title="VDA"></el-step>
-	    <el-step title="BTR"></el-step>
+	    <el-step title="MBTI"></el-step>
+	    <!-- <el-step title="DDI"></el-step> -->
+	    <el-step title="GLPA"></el-step>
+	    <!-- <el-step title="BTR"></el-step> -->
 	  </el-steps>
 	</div>
 	<div class="mainbody">

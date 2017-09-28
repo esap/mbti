@@ -6,7 +6,7 @@
   </div>
     <el-table height="640" stripe border :data="tableData" style="width: 100%">
     <el-table-column type="index" width="80"></el-table-column>
-      <el-table-column prop="desc" label="试题"></el-table-column>
+      <el-table-column prop="desc" label="倾向A"></el-table-column>
       <el-table-column label="倾向选择" width="540">     
         <template scope="scope">
             <el-radio-group v-model="scope.row.vab" @change="v=>{
@@ -24,10 +24,11 @@
             </el-radio-group>
         </template>
       </el-table-column>
+      <el-table-column prop="desc2" label="倾向B"></el-table-column>
     </el-table>
     <br />
   <div class="float-footer">
-    <el-button type="primary" size="large" style="margin-top: 12px;" :disabled="!ok" @click="next">下一步</el-button>
+    <Button type="primary" :loading="loading" size="large" style="margin-top: 12px;" :disabled="!ok" @click="next">下一步</Button>
   </div>
 </div>
 </template>
@@ -38,6 +39,7 @@
       data() {
         return {
           tableData: ds.dataTable,
+          loading: false
         }
       },
       computed:{
@@ -51,16 +53,19 @@
       },
       methods: {
         postData() {
+          this.loading=true
           this.$http.post(this.$token("glpa"),this.$store.state.form)
           .then(r=> {
             if(r.data.result){
+              this.loading=false
               const h = this.$createElement
               this.$notify({
                 title: '提交成功',
                 message: h('i', { style: 'color: teal'}, '提交成功')
               });              
-              this.$router.push("/mbti") 
+              this.$router.push("/end") 
             } else{
+              this.loading=false
               this.$notify({
                 title: '提交失败',
                 message: h('i', { style: 'color: teal'}, r.data.errmsg)
@@ -68,6 +73,7 @@
             } 
           })
           .catch(e=> {
+            this.loading=false
             console.log(e)
             this.$notify({
               title: '提交失败',
@@ -81,7 +87,7 @@
         },
       },
       activated(){
-        this.$store.state.active=2
+        this.$store.state.active=3
       }
     }
   </script>

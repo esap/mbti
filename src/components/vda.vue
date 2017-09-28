@@ -15,6 +15,7 @@
     </el-table-column>
       <el-table-column
         prop="desc"
+        width="360"
         label="试题">
       </el-table-column>
       <el-table-column
@@ -39,7 +40,7 @@
     </el-table>
     <br />
   <div class="float-footer">
-    <el-button type="primary" style="margin-top: 12px;" :disabled="!ok" @click="next">下一步</el-button>
+    <Button type="primary" :loading="loading" style="margin-top: 12px;" :disabled="!ok" @click="next">下一步</Button>
   </div>
   </div>
 </template>
@@ -50,6 +51,7 @@
       data() {
         return {
           tableData: ds.dataTable,
+          loading: false
         }
       },
       computed:{
@@ -62,15 +64,17 @@
       },
       methods: {
         postData() {
+          this.loading=true
           this.$http.post(this.$token("vda"),this.$store.state.form)
           .then(r=> {
+            this.loading=false
             if(r.data.result){
               const h = this.$createElement
               this.$notify({
                 title: '提交成功',
                 message: h('i', { style: 'color: teal'}, '提交成功')
               });              
-              this.$router.push("/btr") 
+              this.$router.push("/mbti") 
             } else{
               this.$notify({
                 title: '提交失败',
@@ -79,6 +83,7 @@
             } 
           })
           .catch(e=> {
+            this.loading=false
             console.log(e)
             this.$notify({
               title: '提交失败',
@@ -93,7 +98,7 @@
         },
       },
       activated(){
-        this.$store.state.active=4
+        this.$store.state.active=1
       }
     }
   </script>
