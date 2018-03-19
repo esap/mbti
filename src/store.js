@@ -1,6 +1,7 @@
 import Vue from 'vue' 
 import Vuex from 'vuex'
 import axios from 'axios'
+import cookie from 'js-cookie'
 import { Message } from 'element-ui';
 
 Vue.use(Vuex);
@@ -115,6 +116,7 @@ export default new Vuex.Store({
           commit('setUserName', apiParam.user)
           sessionStorage.setItem("esap_user", apiParam.user)
           sessionStorage.setItem("esap_token", r.data.token)
+          cookie.set("esap_token", r.data.token)
           state.loading=false
         } else {
           Message({
