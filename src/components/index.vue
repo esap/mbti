@@ -43,7 +43,7 @@
     <el-input type="textarea" placeholder="可填写您的特长，爱好等" v-model="$store.state.form.rem"></el-input>
   </el-form-item>
   <el-form-item>
-    <el-button type="primary" size="large" :disabled="valid" @click="onSubmit">开始答题</el-button>
+    <Button type="primary" :loading="loading" size="large" :disabled="valid" @click="onSubmit">开始答题</Button>
   </el-form-item>
 </el-form>
 </div>
@@ -54,6 +54,7 @@
       data() {
         return {
           tableData: [],
+          loading: false
         }
       },
       computed:{
@@ -63,7 +64,8 @@
       },
       methods: {
         postData() {
-          this.$http.post(this.$store.state.esPath +"FABE综合试题",this.$store.state.form)
+          this.loading=true
+          this.$http.post(this.$tokenes("FABE综合试题"), this.$store.state.form)
           .then(r=> {
             if(r.data.result){
               this.$store.state.form.rcid=r.data.rcid
@@ -73,8 +75,10 @@
                 title: '提交成功',
                 message: h('i', { style: 'color: teal'}, '提交成功')
               });              
-              this.$router.push("/ddi") 
-            } else{
+              this.loading=false
+              this.$router.push("/vda") 
+            } else {
+              this.loading=false
               this.$notify({
                 title: '提交失败',
                 message: h('i', { style: 'color: teal'}, r.data.errmsg)
@@ -82,6 +86,7 @@
             } 
           })
           .catch(e=> {
+            this.loading=false
             console.log(e)
             this.$notify({
               title: '提交失败',

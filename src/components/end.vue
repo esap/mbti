@@ -46,7 +46,7 @@
     <el-input disabled type="textarea" v-model="$store.state.form.desc"></el-input>
   </el-form-item>
   <el-form-item>
-    <el-button type="primary" size="large" @click="onSubmit">重新开始</el-button>
+    <Button type="primary" size="large" @click="onSubmit">重新开始</Button>
     <!-- <el-button>取消</el-button> -->
   </el-form-item>
 </el-form>
@@ -68,7 +68,7 @@
       }
     },
     activated(){
-      this.$store.state.active=6
+      this.$store.state.active=4
     }
   }
 </script>

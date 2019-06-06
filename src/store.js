@@ -1,15 +1,23 @@
 import Vue from 'vue' 
 import Vuex from 'vuex'
 import axios from 'axios'
+import cookie from 'js-cookie'
 import { Message } from 'element-ui';
 
 Vue.use(Vuex);
 
+function getpath(path) {
+  return process.env.NODE_ENV === 'production' ? "/"+path : "http://localhost:9090/"+path
+}
+
 export default new Vuex.Store({
   state: {
-  	apiPath: process.env.NODE_ENV === 'production' ? "/api/" : "http://localhost:9090/api/",
-    esPath: process.env.NODE_ENV === 'production' ? "/es/" : "http://localhost:9090/es/",
-    appUrl: process.env.NODE_ENV === 'production' ? "/" : "http://localhost:9090/",
+    apiPath: getpath("api/"),
+    api2Path: getpath("api2/"),
+    esPath: getpath("es/"),
+    appUrl: getpath(""),
+    uploadUrl: getpath("upload"),
+    adminUrl: getpath("admin/"),
     mts: false,
     pSize:15,
     cPage:1,
@@ -17,7 +25,7 @@ export default new Vuex.Store({
     showPagn:true,
     loading:false,
     topNav:"/login",
-    userName:'test',
+    userName:'',
     form:{
       name: '',
       position: '',
@@ -100,28 +108,36 @@ export default new Vuex.Store({
 		  })  		
     },
     doLogin({ commit, state }, apiParam) {
-      state.loading=true;
-      let apiUrl=state.esPath + 'login';
-      axios.post(apiUrl, apiParam).then(r => {
+      state.loading=true
+      let apiUrl=state.appUrl + 'login/'
+      axios.post(apiUrl, apiParam)
+      .then(r => {
         if (r.data.result) { 
-          commit('setUserName', r.data.msg);    
-          state.loading=false;              
+          commit('setUserName', apiParam.user)
+          sessionStorage.setItem("esap_user", apiParam.user)
+          sessionStorage.setItem("esap_token", r.data.token)
+          cookie.set("esap_token", r.data.token)
+          state.loading=false
         } else {
           Message({
             showClose: true,
             message: '登陆失败',
             duration:1000
-          });
+          })
         }
-      }, r => {
-        if (state.loading) {
-          commit('setUserName', ''); 
-          state.loading=false;     
-        }     
-      }); 
+      })
+      .catch(e => {
+        Message({
+            showClose: true,
+            message: '登陆失败',
+            duration:1000
+        })  
+      })
     },
     outlogin( { commit }) {
-      commit('setUserName', ''); 
+      commit('setUserName', '')
+      sessionStorage.removeItem("esap_token")
+      sessionStorage.removeItem("esap_user")
     }
   }
 })
