@@ -74,7 +74,7 @@
       methods: {
         postData() {
           this.loading=true
-          this.$http.post(this.$token("mbti"),this.$store.state.form)
+          this.$http.post(this.$tokenes("mbti?db=esap2"),this.$store.state.form)
           .then(r=> {
             if(r.data.result){
               this.loading=false
