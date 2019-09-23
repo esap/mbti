@@ -12,7 +12,7 @@ import 'iview/dist/styles/iview.css'
 //Vue.prototype.$http = axios
 Vue.prototype.$token=function(param) { return store.state.apiPath + param + "?" }
 Vue.prototype.$tokenadmin=function(param) { return store.state.adminUrl + param + "?" }
-Vue.prototype.$tokenes=function(param) { return store.state.esPath + param + "?" }
+Vue.prototype.$tokenes=function(param) { return store.state.api2Path + param + "?" }
 Vue.prototype.$tokenup=function() { return store.state.uploadUrl + "?" }
 Vue.use(AxiosPlugin)
 Vue.use(ElementUI)

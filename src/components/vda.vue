@@ -65,7 +65,7 @@
       methods: {
         postData() {
           this.loading=true
-          this.$http.post(this.$token("vda"),this.$store.state.form)
+          this.$http.post(this.$tokenes("vda?db=esap2"),this.$store.state.form)
           .then(r=> {
             this.loading=false
             if(r.data.result){

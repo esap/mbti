@@ -2,8 +2,8 @@
   <div id="app">
 	<!-- 登陆 -->
 	<Modal title="登陆ESAP云平台[MBTI 3.0]"
-	  :closable="false"
-	  :mask-closable="false"
+	  :closable="true"
+	  :mask-closable="true"
 	  v-model="notLogin">
 	  <Form :model="form">
 	    <Form-item label="账号">
@@ -23,7 +23,7 @@
 	</Modal>
   <!-- header导航 -->	
   <el-menu router theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-	  <el-menu-item index="info">ESAP综合试题</el-menu-item>
+	  <el-menu-item index="info">水镜综合试题</el-menu-item>
 	  <!-- <el-submenu index="2">
 	    <template slot="title">微信模块</template>
 	    <el-menu-item index="wxtx">提醒</el-menu-item>
@@ -75,7 +75,7 @@ export default {
 	  };
 	},
 	computed: {
-		notLogin() { return !this.$store.getters.isLogin },
+		notLogin() { return false },
 		loginVisible() {
 			return !this.$store.getters.isLogin
 		}

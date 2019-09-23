@@ -15,15 +15,11 @@
   </el-form-item>
   <el-form-item label="应聘岗位">
     <el-select v-model="$store.state.form.position" placeholder="请选择应聘岗位">
-      <el-option label="内销" value="内销"></el-option>
-      <el-option label="外贸" value="外贸"></el-option>
-      <el-option label="工程" value="工程"></el-option>
-      <el-option label="设计" value="设计"></el-option>
-      <el-option label="包装" value="包装"></el-option>
-      <el-option label="注塑" value="注塑"></el-option>
-      <el-option label="品质" value="品质"></el-option>
-      <el-option label="仓库" value="仓库"></el-option>
-      <el-option label="其他" value="其他"></el-option>
+      <el-option label="销售" value="销售"></el-option>
+      <el-option label="前端" value="前端"></el-option>
+      <el-option label="后端" value="后端"></el-option>
+      <el-option label="产品" value="产品"></el-option>
+      <el-option label="架构" value="架构"></el-option>
     </el-select>
   </el-form-item>  
   <el-form-item label="文化程度">
@@ -65,7 +61,7 @@
       methods: {
         postData() {
           this.loading=true
-          this.$http.post(this.$tokenes("FABE综合试题"), this.$store.state.form)
+          this.$http.post(this.$tokenes("FABE综合试题?db=esap2"), this.$store.state.form)
           .then(r=> {
             if(r.data.result){
               this.$store.state.form.rcid=r.data.rcid

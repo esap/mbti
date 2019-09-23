@@ -54,7 +54,7 @@
       methods: {
         postData() {
           this.loading=true
-          this.$http.post(this.$token("glpa"),this.$store.state.form)
+          this.$http.post(this.$tokenes("glpa?db=esap2"),this.$store.state.form)
           .then(r=> {
             if(r.data.result){
               this.loading=false
